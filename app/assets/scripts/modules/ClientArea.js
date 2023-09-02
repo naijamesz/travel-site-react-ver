@@ -1,37 +1,39 @@
-import Axios from "axios"
+import Axios from 'axios';
 
 class ClientArea {
   constructor() {
-    this.injectHTML()
-    this.form = document.querySelector(".client-area__form")
-    this.field = document.querySelector(".client-area__input")
-    this.contentArea = document.querySelector(".client-area__content-area")
-    this.events()
+    this.injectHTML();
+    this.form = document.querySelector('.client-area__form');
+    this.field = document.querySelector('.client-area__input');
+    this.contentArea = document.querySelector('.client-area__content-area');
+    this.events();
   }
 
   events() {
-    this.form.addEventListener("submit", e => {
-      e.preventDefault()
-      this.sendRequest()
-    })
+    this.form.addEventListener('submit', e => {
+      e.preventDefault();
+      this.sendRequest();
+    });
   }
 
   sendRequest() {
-    Axios.post("https://stately-belekoy-6d62fc.netlify.app/.netlify/functions/secret-area", { password: this.field.value })
+    Axios.post('https://silly-buttercream-951f4f.netlify.app//.netlify/functions/secret-area', {
+      password: this.field.value,
+    })
       .then(response => {
-        this.form.remove()
-        this.contentArea.innerHTML = response.data
+        this.form.remove();
+        this.contentArea.innerHTML = response.data;
       })
       .catch(() => {
-        this.contentArea.innerHTML = `<p class="client-area__error">That secret phrase is not correct. Try again.</p>`
-        this.field.value = ""
-        this.field.focus()
-      })
+        this.contentArea.innerHTML = `<p class="client-area__error">That secret phrase is not correct. Try again.</p>`;
+        this.field.value = '';
+        this.field.focus();
+      });
   }
 
   injectHTML() {
     document.body.insertAdjacentHTML(
-      "beforeend",
+      'beforeend',
       `
     <div class="client-area">
   <div class="wrapper wrapper--medium">
@@ -44,8 +46,8 @@ class ClientArea {
   </div>
 </div>
     `
-    )
+    );
   }
 }
 
-export default ClientArea
+export default ClientArea;
